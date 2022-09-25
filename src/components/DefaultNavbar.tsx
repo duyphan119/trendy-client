@@ -1,11 +1,14 @@
-import { Affix } from "antd";
+import { Affix, Grid } from "antd";
 import { Link } from "react-router-dom";
 import { AiOutlineRight } from "react-icons/ai";
 import styles from "../styles/components/DefaultNavbar.module.scss";
 import { useId } from "react";
 
+const { useBreakpoint } = Grid;
 export const DefaultNavbar = () => {
+	const screens = useBreakpoint();
 	const id = useId();
+	if (!screens.lg) return <></>;
 	return (
 		<Affix
 			offsetTop={0}
@@ -13,14 +16,20 @@ export const DefaultNavbar = () => {
 				const el = document.getElementById(id);
 				if (el !== null) {
 					if (affixed) {
-						el.style.backgroundColor = "#000";
+						el.style.backgroundColor = "rgba(26, 26, 26, 0.82)";
 					} else {
 						el.style.backgroundColor = "rgba(51, 51, 51, 0.62)";
 					}
 				}
 			}}
 		>
-			<nav className={styles.navbar} id={id}>
+			<nav
+				className={styles.navbar}
+				id={id}
+				style={{
+					padding: screens.xl ? "0 160px" : "0 16px",
+				}}
+			>
 				<ul className={styles.items}>
 					<li className={styles.item}>
 						<Link to="/">Trang chủ</Link>

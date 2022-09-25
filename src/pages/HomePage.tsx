@@ -1,5 +1,8 @@
+import SwiperCore, { Autoplay, Pagination } from "swiper";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { GroupProducts } from "../components/GroupProducts";
-
+SwiperCore.use([Autoplay]);
 const products: any = [
 	{
 		id: 1,
@@ -186,13 +189,39 @@ const categories2: any = [
 		alias: "du-lich-chau-uc",
 	},
 ];
+const slides: any = [
+	"https://trendy.w2.exdomain.net/image/cache/catalog/slider/slider-trendy-1-1920x1100.jpg",
+	"https://trendy.w2.exdomain.net/image/cache/catalog/slider/slider-trendy-2-1920x1100.jpg",
+	"https://trendy.w2.exdomain.net/image/cache/catalog/slider/slider-trendy-3-1920x1100.jpg",
+	"https://trendy.w2.exdomain.net/image/cache/catalog/slider/slider-trendy-4-1920x1100.jpg",
+];
 
 export const HomePage = () => {
 	return (
 		<main>
-			<div style={{ width: "100vw" }}>
-				<img style={{ width: "100%" }} src="https://trendy.w2.exdomain.net/image/cache/catalog/slider/slider-trendy-3-1920x1100.jpg" alt="" />
-			</div>
+			<Swiper
+				slidesPerView={1}
+				modules={[Pagination]}
+				pagination={{
+					enabled: true,
+					clickable: true,
+				}}
+				autoplay={{ delay: 3333 }}
+			>
+				{slides.map((slide: any) => {
+					return (
+						<SwiperSlide key={slide}>
+							<div
+								style={{
+									background: `url(${slide}) center no-repeat`,
+									width: "100%",
+									height: 840,
+								}}
+							></div>
+						</SwiperSlide>
+					);
+				})}
+			</Swiper>
 			<GroupProducts
 				title="Tour Mới Nhất"
 				description="Hệ thống đặt Tour hàng đầu Việt Nam. Hơn 300 tours du lịch ở Việt Nam và Quốc tế"
@@ -207,12 +236,6 @@ export const HomePage = () => {
 				categories={categories1}
 			/>
 			<GroupProducts title="Tour Nước Ngoài" products={products} layout="slider" categories={categories2} />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
 		</main>
 	);
 };

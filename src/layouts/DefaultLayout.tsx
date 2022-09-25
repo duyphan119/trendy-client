@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { DefaultFooter } from "../components/DefaultFooter";
 import { DefaultHeader } from "../components/DefaultHeader";
 
 interface Props {
@@ -10,6 +11,7 @@ export const DefaultLayout: FC<Props> = ({ children }) => {
 		<div>
 			<DefaultHeader />
 			{children}
+			<DefaultFooter />
 		</div>
 	);
 };

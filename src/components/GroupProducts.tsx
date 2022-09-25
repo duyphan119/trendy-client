@@ -1,16 +1,12 @@
-import { Col, Row } from "antd";
+import { Col, Grid, Row } from "antd";
 import { CSSProperties, FC, useState } from "react";
-import { Link } from "react-router-dom";
-import { AiOutlineSchedule, AiOutlineFieldTime } from "react-icons/ai";
-import { BiBus, BiTrain } from "react-icons/bi";
-import { GiCommercialAirplane, GiSailboat } from "react-icons/gi";
-import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "../styles/components/GroupProducts.module.scss";
 import { ProductCard } from "./ProductCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 interface Props {
 	products?: any;
 	title?: string;
@@ -20,9 +16,10 @@ interface Props {
 	categories?: any;
 	backgroundUrl?: string;
 }
-
+const { useBreakpoint } = Grid;
 export const GroupProducts: FC<Props> = ({ products, title, styleTitle, description, layout, categories, backgroundUrl }) => {
 	const [active, setActive] = useState<any>();
+	const screens = useBreakpoint();
 	const handleClick = (category: any) => {
 		setActive(category);
 	};
@@ -37,8 +34,8 @@ export const GroupProducts: FC<Props> = ({ products, title, styleTitle, descript
 					backgroundRepeat: "no-repeat",
 					backgroundSize: "cover",
 					width: "100vw",
+					padding: screens.lg ? "60px 160px" : "60px 40px",
 				}}
-				className={styles.products}
 			>
 				{categories && (
 					<ul className={styles.categories}>
@@ -49,6 +46,7 @@ export const GroupProducts: FC<Props> = ({ products, title, styleTitle, descript
 										active ? (active.id === category.id ? styles.active : "") : index === 0 ? styles.active : ""
 									}`}
 									onClick={() => handleClick(category)}
+									key={category.id}
 								>
 									{category.name}
 								</li>
@@ -61,7 +59,7 @@ export const GroupProducts: FC<Props> = ({ products, title, styleTitle, descript
 					<Row gutter={[40, 40]}>
 						{products?.map((product: any) => {
 							return (
-								<Col lg={8} xs={12} key={product.id}>
+								<Col lg={8} xs={24} md={12} key={product.id}>
 									<ProductCard product={product} />
 								</Col>
 							);
@@ -71,7 +69,7 @@ export const GroupProducts: FC<Props> = ({ products, title, styleTitle, descript
 				{layout === "slider" && (
 					<Swiper
 						spaceBetween={40}
-						slidesPerView={3}
+						slidesPerView={screens.lg ? 3 : screens.md ? 2 : 1}
 						modules={[Pagination, Navigation]}
 						navigation={{
 							prevEl: `.${styles["prev-arrow"]}`,
@@ -84,7 +82,7 @@ export const GroupProducts: FC<Props> = ({ products, title, styleTitle, descript
 					>
 						{products?.map((product: any) => {
 							return (
-								<SwiperSlide>
+								<SwiperSlide key={product.id}>
 									<ProductCard product={product} />
 									<br />
 									<br />

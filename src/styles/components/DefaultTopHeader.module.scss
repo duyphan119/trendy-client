@@ -2,7 +2,6 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(51, 51, 51, 0.41);
-	padding: 0 160px;
 	.top {
 		height: 36px;
 		display: flex;
@@ -45,22 +44,30 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 64px;
+
 		.logo {
 			flex: 1;
 			outline: none;
+			position: relative;
+			display: block;
 			img {
 				height: 56px;
+			}
+			.menu {
+				position: absolute;
+				top: 50%;
+				left: 0;
+				cursor: pointer;
+				transform: translateY(-50%);
+				color: #f3f3f3;
+				font-size: 24px;
 			}
 		}
 		.search-container {
 			border: 1px solid #f3f3f3;
 			display: flex;
 			align-items: center;
-			padding: 8px 16px;
 			border-radius: 2px;
-			flex: 2;
-			margin: 0 160px;
 			input {
 				background-color: inherit;
 				outline: none;
@@ -91,6 +98,112 @@
 						font-size: 13px;
 					}
 				}
+			}
+		}
+	}
+}
+.drawer {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transform: translateX(-100%);
+	transition: transform linear 0.4s;
+	background-color: #fff;
+	color: #000;
+	min-width: 240px;
+	z-index: 11;
+	&.open {
+		transform: translateX(0);
+	}
+	.close {
+		color: #f3f3f3;
+		cursor: pointer;
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 20px;
+	}
+	.account {
+		min-height: 160px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: #f3f3f3;
+		background: url(https://trendy.w2.exdomain.net/image/catalog/background/br-nav-slide-left.jpg) 0 0 / cover no-repeat;
+		.hello {
+			margin-bottom: 8px;
+		}
+		.authentication {
+			display: flex;
+			button,
+			a {
+				color: inherit;
+				text-transform: uppercase;
+				padding: 4px 0;
+				margin: 0 4px;
+				border: 1px solid #f3f3f3c7;
+				display: block;
+				font-size: 14px;
+				min-width: 100px;
+				text-align: center;
+			}
+		}
+	}
+	.items {
+		color: #000;
+		.item {
+			border-bottom: 1px solid lightgray;
+			padding: 6px 4px;
+			.item-wrapper {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				a {
+					color: inherit;
+
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
+				svg {
+					cursor: pointer;
+				}
+			}
+			&:first-child {
+				border-top: 1px solid lightgray;
+			}
+		}
+	}
+}
+.check {
+	display: none;
+	&:checked {
+		& + .dropdown {
+			display: block;
+		}
+	}
+}
+.dropdown {
+	display: none;
+	color: #000;
+	margin-top: 4px;
+	.dropdown-item {
+		padding: 4px 0 4px 4px;
+		.dropdown-item-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			a {
+				color: inherit;
+
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			svg {
+				cursor: pointer;
 			}
 		}
 	}
